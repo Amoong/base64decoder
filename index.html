@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/jpg" href="./favicon.ico" />
+    <title>Base64 Auto Decoder</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #232323;
+      margin: 0;
+    }
+    h5 {
+      font-size: 17px;
+    }
+    .container {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #e2e3e4;
+    }
+    input {
+      box-sizing: border-box;
+      border: 2px solid white;
+      border-radius: 3px;
+      width: 100%;
+      padding: 10px;
+      color: #232323;
+    }
+    input:focus-visible {
+      background: rgb(216, 255, 246);
+      border: 2px solid teal;
+      outline: none;
+    }
+    .result-container {
+      display: flex;
+      width: 100%;
+      margin-top: 10px;
+      align-items: center;
+    }
+    p {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      flex-grow: 1;
+      border-radius: 3px;
+      padding: 8px;
+      color: rgb(231, 86, 115);
+      margin: 0;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>인코딩된 주소를 넣어주세요</h2>
+      <input type="text" />
+      <div class="result-container">
+        <p class="result">&nbsp;</p>
+      </div>
+    </div>
+    <script>
+      (() => {
+        let resultElem;
+
+        function init() {
+          const inputElem = document.querySelector("input");
+          inputElem.oninput = onChange;
+          inputElem.focus();
+          inputElem.onclick = () => inputElem.select();
+
+          resultElem = document.querySelector(".result");
+        }
+
+        function aToB(value) {
+          const decodedValue = atob(value);
+          console.log(decodedValue);
+          if (!decodedValue.includes("http")) {
+            throw "URL 형식이 아닌 것 같습니다.";
+          }
+
+          return decodedValue;
+        }
+
+        function onChange(e) {
+          const { value } = e.target;
+
+          let decodedValue;
+
+          try {
+            decodedValue = aToB(value);
+          } catch (error) {
+            if (typeof error !== "string") {
+              return;
+            }
+            resultElem.innerText = error;
+            return;
+          }
+
+          window.open(decodedValue, "_blank");
+          resultElem.innerText = decodedValue;
+        }
+
+        window.onload = init;
+      })();
+    </script>
+  </body>
+</html>
