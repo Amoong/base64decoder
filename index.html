@@ -6,112 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/jpg" href="./favicon.ico" />
     <title>Base64 Auto Decoder</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="main.css" />
   </head>
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100vw;
-      height: 100vh;
-      background: #232323;
-      margin: 0;
-    }
-    h5 {
-      font-size: 17px;
-    }
-    .container {
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #e2e3e4;
-    }
-    input {
-      box-sizing: border-box;
-      border: 2px solid white;
-      border-radius: 3px;
-      width: 100%;
-      padding: 10px;
-      color: #232323;
-    }
-    input:focus-visible {
-      background: rgb(216, 255, 246);
-      border: 2px solid teal;
-      outline: none;
-    }
-    .result-container {
-      display: flex;
-      width: 100%;
-      margin-top: 10px;
-      align-items: center;
-    }
-    p {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      flex-grow: 1;
-      border-radius: 3px;
-      padding: 8px;
-      color: rgb(231, 86, 115);
-      margin: 0;
-    }
-  </style>
   <body>
     <div class="container">
-      <h2>인코딩된 주소를 넣어주세요</h2>
-      <input type="text" />
+      <h2>인코딩된 문자열을 넣어주세요</h2>
+      <div class="input-container">
+        <input type="text" placeholder="base64 문자열을 넣어주세요." />
+        <div class="error-msg hide">🤷‍♀️ base64 형식이 아닙니다.</div>
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="arrow"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12.068.016l-3.717 3.698 5.263 5.286h-13.614v6h13.614l-5.295 5.317 3.718 3.699 11.963-12.016z"
+        />
+      </svg>
       <div class="result-container">
-        <p class="result">&nbsp;</p>
+        <div class="result">
+          <p id="result-text"></p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="copy"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z" />
+          </svg>
+        </div>
+        <span class="copy-msg invisible">복사 되었습니다.</span>
       </div>
     </div>
-    <script>
-      (() => {
-        let resultElem;
-
-        function init() {
-          const inputElem = document.querySelector("input");
-          inputElem.oninput = onChange;
-          inputElem.focus();
-          inputElem.onclick = () => inputElem.select();
-
-          resultElem = document.querySelector(".result");
-        }
-
-        function aToB(value) {
-          const decodedValue = atob(value);
-          console.log(decodedValue);
-          if (!decodedValue.includes("http")) {
-            throw "URL 형식이 아닌 것 같습니다.";
-          }
-
-          return decodedValue;
-        }
-
-        function onChange(e) {
-          const { value } = e.target;
-
-          let decodedValue;
-
-          try {
-            decodedValue = aToB(value);
-          } catch (error) {
-            if (typeof error !== "string") {
-              return;
-            }
-            resultElem.innerText = error;
-            return;
-          }
-
-          window.open(decodedValue, "_blank");
-          resultElem.innerText = decodedValue;
-        }
-
-        window.onload = init;
-      })();
-    </script>
+    <script src="./main.js"></script>
   </body>
 </html>
