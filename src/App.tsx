@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, Global, Theme, ThemeProvider } from "@emotion/react";
 import { Fragment, useEffect } from "react";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 import HomePage from "./Pages/HomePage";
 import GlobalCss from "./styles/GlobalCss";
@@ -15,8 +15,7 @@ const appCss = (theme: Theme) => css`
 
 function App() {
   useEffect(() => {
-    ReactGA.initialize("UA-154574834-2");
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.initialize("G-0BR0L0BCQ7");
   });
 
   return (
