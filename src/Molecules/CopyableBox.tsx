@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from "react";
 import { css, Theme } from "@emotion/react";
+import ReactGA from "react-ga4";
 
 import { copyText } from "utils/common";
 
@@ -71,6 +72,12 @@ function CopyableBox(props: Props) {
     if (!props.text) {
       return;
     }
+
+    ReactGA.event({
+      category: "user action",
+      action: "copy text",
+      label: "user copied decoded text.",
+    });
 
     blinkEffect();
     blinkAlert();
