@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, Global, Theme, ThemeProvider } from "@emotion/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import ReactGA from "react-ga";
+
 import HomePage from "./Pages/HomePage";
 import GlobalCss from "./styles/GlobalCss";
 import { darkTheme } from "./styles/themes";
@@ -12,6 +14,11 @@ const appCss = (theme: Theme) => css`
 `;
 
 function App() {
+  useEffect(() => {
+    ReactGA.initialize("UA-154574834-2");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  });
+
   return (
     <Fragment>
       <ThemeProvider theme={darkTheme}>
