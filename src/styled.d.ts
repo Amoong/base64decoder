@@ -1,0 +1,12 @@
+import "@emotion/react";
+
+declare module "@emotion/react" {
+  export interface Theme {
+    background: string;
+    text: string;
+    highlight: string;
+    boxBackground: string;
+    boxBackgroundHighlight: string;
+    boxText: string;
+  }
+}
